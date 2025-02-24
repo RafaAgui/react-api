@@ -30,6 +30,7 @@ function App() {
           <h2>{pokemonData.name}</h2> 
           <p>{pokemonData.base_experience}</p>
           <img src={pokemonImage} alt={`El pokemon es ${pokemonData.name}`} />
+          
        </>
       }
       
