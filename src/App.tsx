@@ -1,40 +1,22 @@
 import './App.css'
-import axios from 'axios';
-import { useState, useEffect } from 'react';
+import useApi from './hooks/useApi'
+
 
 function App() {
-  const [pokemonData, setPokemonData] = useState<{name: string, base_experience: string} | null >(null);
-  const[pokemonImage, setPokemonImage] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const { data, error, loading } = useApi<[]>('GET', null, []);
+  console.log('llegan datos: ', data)
 
-
-  useEffect(() => {
-    axios.get('https://pokeapi.co/api/v2/pokemon/ditto')
-      .then(response => {
-        setPokemonData(response.data);
-        setPokemonImage(response.data.sprites.front_shiny);
-        console.log(response.data);
-      })
-  
-      .catch(() => {
-        setError('Pokemon not found');
-      });
-  }, []); 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
   
   return (
     <>
       <h1>Pokemon</h1>
-
-      { pokemonData &&
-        <>
-          <h2>{pokemonData.name}</h2> 
-          <p>{pokemonData.base_experience}</p>
-          <img src={pokemonImage} alt={`El pokemon es ${pokemonData.name}`} />
-          
-       </>
-      }
-      
-      {error && <p>{error}</p>}
+      <ul>
+      {data.map((user) => (
+          <li key={user.id}><a href={user.url}>{user.name}</a></li>
+        ))}
+      </ul>
     </>
   );
 }
