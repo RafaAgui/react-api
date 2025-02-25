@@ -1,9 +1,20 @@
 import { useState, useEffect } from 'react';
 import axiosInstance from '../api/axiosInstance';
 
-const useApi = (endpoint, method = 'GET', body = null, dependencies = []) => {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+type Pokemon = {
+  name: string;
+  id: number;
+};
+
+type UsePokemonResult = {
+  data: Pokemon[] | null;
+  error: { message: string } | null;
+  loading: boolean;
+};
+
+const usePokemon = (method = 'GET', body = null, dependencies: unknown[] = []): UsePokemonResult => {
+  const [data, setData] = useState<Pokemon[] | null>(null);
+  const [error, setError] = useState<{ message: string } | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,7 +27,7 @@ const useApi = (endpoint, method = 'GET', body = null, dependencies = []) => {
         });
         setData(response.data.results);
       } catch (error) {
-        setError(error);
+        setError({ message: error.message });
       } finally {
         setLoading(false);
       }
@@ -28,4 +39,4 @@ const useApi = (endpoint, method = 'GET', body = null, dependencies = []) => {
   return { data, error, loading };
 };
 
-export default useApi;
+export default usePokemon;

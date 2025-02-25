@@ -1,10 +1,10 @@
 import './App.css'
-import useApi from './hooks/useApi'
+import usePokemon from './hooks/useApi'
+
 
 
 function App() {
-  const { data, error, loading } = useApi<[]>('GET', null, []);
-  console.log('llegan datos: ', data)
+  const { data, error, loading } = usePokemon('GET', null, []);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -13,9 +13,9 @@ function App() {
     <>
       <h1>Pokemon</h1>
       <ul>
-      {data.map((user) => (
-          <li key={user.id}><a href={user.url}>{user.name}</a></li>
-        ))}
+      {data && data.map((pokemon, index) => (
+        <li key={index}>{pokemon.name}</li>
+      ))}
       </ul>
     </>
   );
