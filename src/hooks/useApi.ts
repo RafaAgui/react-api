@@ -1,19 +1,22 @@
 import { useState, useEffect } from 'react';
 import axiosInstance from '../api/axiosInstance';
 
-type Pokemon = {
+type Rickandmorty = {
   name: string;
+  image: string;
+  status: string;
+  species: string;
   id: number;
 };
 
-type UsePokemonResult = {
-  data: Pokemon[] | null;
+type UseRickandmortyResult = {
+  data: Rickandmorty[] | null;
   error: { message: string } | null;
   loading: boolean;
 };
 
-const usePokemon = (method = 'GET', body = null, dependencies: unknown[] = []): UsePokemonResult => {
-  const [data, setData] = useState<Pokemon[] | null>(null);
+const useRickandmorty = (endpoint: string, method = 'GET', body = null, dependencies: unknown[] = []): UseRickandmortyResult => {
+  const [data, setData] = useState<Rickandmorty[] | null>(null);
   const [error, setError] = useState<{ message: string } | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -22,6 +25,7 @@ const usePokemon = (method = 'GET', body = null, dependencies: unknown[] = []): 
       setLoading(true);
       try {
         const response = await axiosInstance({
+          url: endpoint,
           method: method,
           data: body
         });
@@ -39,4 +43,4 @@ const usePokemon = (method = 'GET', body = null, dependencies: unknown[] = []): 
   return { data, error, loading };
 };
 
-export default usePokemon;
+export default useRickandmorty;
