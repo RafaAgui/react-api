@@ -7,6 +7,7 @@ type Rickandmorty = {
   status: string;
   species: string;
   id: number;
+  url: string;
 };
 
 type UseRickandmortyResult = {
@@ -38,7 +39,7 @@ const useRickandmorty = (endpoint: string, method = 'GET', body = null, dependen
     };
 
     fetchData();
-  }, dependencies); // Re-run the effect if dependencies change
+  }, [body, endpoint, method, dependencies]); // Re-run the effect if dependencies change
 
   return { data, error, loading };
 };
