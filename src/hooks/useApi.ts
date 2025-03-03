@@ -38,7 +38,7 @@ const useRickandmorty = ( method = 'GET', body = null, dependencies= []): UseRic
     };
 
     fetchData();
-  }, [dependencies]); // Re-run the effect if dependencies change
+  }, [method, body, dependencies]); // Re-run the effect if dependencies change
 
   return { data, error, loading };
 };
