@@ -12,18 +12,18 @@ function App() {
 
   return (
     <main>
-      <h1 className='title'>rick and morty</h1>
+      <h1 className='font-display text-3xl font-bold underline mb-10 bg-black'>rick and morty</h1>
       <ul className='caracters'>
-      {data && data.map((rickandmorty, index) => (
-        <a href={rickandmorty.url} target='_blank' rel='noreferrer' key={index}>
-          <li className='caracter'>
-            <h2 className='caracter__title'>{rickandmorty.name}</h2>
-            <img className='caracter__image' src={rickandmorty.image} alt={`avatar de ${rickandmorty.name}`} />
-            <p className='caracter__text'>Status: {rickandmorty.status}</p>
-            <p className='caracter__text'>Species: {rickandmorty.species}</p>
-          </li>
-        </a>
-      ))}
+        {data && data.map((rickandmorty, index) => (
+          <a href={rickandmorty.url} target='_blank' rel='noreferrer' key={index}>
+            <li className='caracter'>
+              <h2 className='caracter__title'>{rickandmorty.name}</h2>
+              <img className='caracter__image' src={rickandmorty.image} alt={`avatar de ${rickandmorty.name}`} />
+              <p className='caracter__text'>Status: {rickandmorty.status}</p>
+              <p className='caracter__text'>Species: {rickandmorty.species}</p>
+            </li>
+          </a>
+        ))}
       </ul>
     </main>
   );

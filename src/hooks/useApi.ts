@@ -16,7 +16,7 @@ type UseRickandmortyResult = {
   loading: boolean;
 };
 
-const useRickandmorty = (endpoint: string, method = 'GET', body = null, dependencies: unknown[] = []): UseRickandmortyResult => {
+const useRickandmorty = ( method = 'GET', body = null, dependencies= []): UseRickandmortyResult => {
   const [data, setData] = useState<Rickandmorty[] | null>(null);
   const [error, setError] = useState<{ message: string } | null>(null);
   const [loading, setLoading] = useState(true);
@@ -26,7 +26,6 @@ const useRickandmorty = (endpoint: string, method = 'GET', body = null, dependen
       setLoading(true);
       try {
         const response = await axiosInstance({
-          url: endpoint,
           method: method,
           data: body
         });
@@ -39,7 +38,7 @@ const useRickandmorty = (endpoint: string, method = 'GET', body = null, dependen
     };
 
     fetchData();
-  }, [body, endpoint, method, dependencies]); // Re-run the effect if dependencies change
+  }, [dependencies]); // Re-run the effect if dependencies change
 
   return { data, error, loading };
 };
